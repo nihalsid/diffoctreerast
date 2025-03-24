@@ -33,8 +33,9 @@ setup(
                 # Main
                 "src/ext.cpp"
             ],
-            extra_compile_args={"nvcc": ["-I" + os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib/glm/")]})
-        ],
+            extra_compile_args={"nvcc": ["-I" + os.environ.get("CUDA_INCLUDE", ""), "-I" + os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib/glm/")]},
+            extra_link_args=["-L" + os.environ.get("CUDA_LIB", "")],
+        )],
     cmdclass={
         'build_ext': BuildExtension
     }
